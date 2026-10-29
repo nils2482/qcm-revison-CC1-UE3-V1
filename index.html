@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>QCM de révision — Socio et Histoire du sport</title>
+<style>
+:root{--bg:#f4f6f9;--sf:#fff;--tx:#1b2433;--mu:#5d6a7e;--bd:#d5dbe5;--so:#0f7c78;--hi:#7a3b8f;--ok:#17803d;--ko:#c0352b;--okb:#e5f5ea;--kob:#fbe9e7;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#10151e;--sf:#1a2230;--tx:#e8ecf3;--mu:#97a3b8;--bd:#2c374a;--so:#3cc1bb;--hi:#c58ad8;--ok:#5ad183;--ko:#ff8a80;--okb:#143323;--kob:#3a1c1a;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#10151e;--sf:#1a2230;--tx:#e8ecf3;--mu:#97a3b8;--bd:#2c374a;--so:#3cc1bb;--hi:#c58ad8;--ok:#5ad183;--ko:#ff8a80;--okb:#143323;--kob:#3a1c1a;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:720px;margin:0 auto;padding:20px 16px 48px}
+h1{font:700 26px/1.2 Georgia,"Times New Roman",serif;margin:8px 0 6px}
+h2{font:700 18px/1.3 system-ui,sans-serif;margin:24px 0 8px}
+p.s{color:var(--mu);margin:0 0 12px}
+.card{background:var(--sf);border:1px solid var(--bd);border-radius:10px;padding:14px;margin:8px 0}
+label.ch{display:flex;gap:12px;align-items:flex-start;cursor:pointer;border-left:5px solid var(--c);padding-left:10px}
+label.ch input{width:20px;height:20px;margin-top:2px;accent-color:var(--c);flex:none}
+label.ch small{display:block;color:var(--mu)}
+.so{--c:var(--so)}.hi{--c:var(--hi)}
+button{font:600 16px system-ui,sans-serif;border-radius:8px;border:1px solid var(--bd);background:var(--sf);color:var(--tx);padding:12px 16px;cursor:pointer;min-height:44px}
+button.p{background:var(--tx);color:var(--bg);border-color:var(--tx)}
+button:disabled{opacity:.4;cursor:not-allowed}
+button:focus-visible,input:focus-visible{outline:3px solid var(--so);outline-offset:2px}
+.row{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+.bar{height:6px;background:var(--bd);border-radius:3px;overflow:hidden;margin:8px 0 16px}
+.bar i{display:block;height:100%;background:var(--tx);transition:width .2s}
+.q{font:600 20px/1.35 Georgia,"Times New Roman",serif;margin:0 0 14px}
+.tag{font-size:14px;color:var(--c);font-weight:600}
+.opt{display:block;width:100%;text-align:left;margin:8px 0;font-weight:500}
+.opt.sel{border:2px solid var(--tx);background:var(--bg)}
+.score{font:700 44px/1 Georgia,serif}
+.rv{border-left:5px solid var(--ko);background:var(--kob)}
+.rv.g{border-left-color:var(--ok);background:var(--okb)}
+.rv b.a{color:var(--ok)}.rv b.w{color:var(--ko)}
+.rv p{margin:6px 0}
+table{width:100%;border-collapse:collapse;font-size:15px}
+td{padding:6px 4px;border-bottom:1px solid var(--bd)}
+td:last-child{text-align:right;font-weight:600}
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+<main>
+<section id="home">
+<h1>QCM de révision</h1>
+<p class="s">Choisis les chapitres à réviser, puis lance une série de 20 questions tirées au hasard dans ta sélection.</p>
+<h2>Sociologie des loisirs</h2><div id="l0"></div>
+<h2>Histoire du sport</h2><div id="l1"></div>
+<div class="row"><button id="all">Tout sélectionner</button><button id="none">Tout décocher</button></div>
+<p class="s" id="info"></p>
+<button class="p" id="go">Lancer un QCM de 20 questions</button>
+</section>
+<section id="quiz" hidden>
+<p class="s" id="prog"></p><div class="bar"><i id="pb"></i></div>
+<div class="card"><span class="tag" id="tg"></span><p class="q" id="qt"></p><div id="op"></div></div>
+<div class="row"><button class="p" id="nx" disabled>Suivant</button><button id="qt2">Abandonner</button></div>
+</section>
+<section id="res" hidden></section>
+</main>
+<script>
+// Format : [question, BONNE réponse, faux 1, faux 2, faux 3, explication] (l'ordre des réponses est mélangé à l'affichage)
+const C=[
+{m:0,t:"Socio · 1890-1914 : la jeunesse, nouvel enjeu politique",q:[
+["Les lois Jules Ferry (1880-1882) rendent l’école…","gratuite, laïque et obligatoire","payante, laïque et facultative","gratuite, religieuse et obligatoire","réservée aux élites","Les instituteurs remplacent les curés : c’est le tournant républicain."],
+["La loi sur les associations date de…","1901","1905","1882","1914","Elle favorise les initiatives locales ; le capital n’est pas partageable entre membres."],
+["La loi de 1905 sépare…","les Églises et l’État","l’école et la famille","le sport et l’école","l’armée et l’Église","L’État devient neutre et l’Église perd le contrôle de la jeunesse."],
+["« Patronage » et « œuvre » désignent respectivement des structures…","catholiques et laïques","laïques et catholiques","ouvrières et sportives","militaires et scolaires","Patronage = catholique ; œuvre = laïque."],
+["Les hygiénistes sont…","des médecins qui lient santé et conditions sociales","des instituteurs républicains","des militaires","des pasteurs","Tuberculose, logement, tout-à-l’égout : la santé est un enjeu social."],
+["Quel est le seul réseau « unitaire » de la période ?","Le mouvement sportif (USFSA)","Le réseau catholique","Le réseau laïque","Le mouvement ouvrier","Les trois autres sont affinitaires (même croyance)."],
+["La FGSPF est la fédération…","catholique des patronages","laïque des écoles","ouvrière","unitaire du sport","Fédération gymnastique et sportive des patronages de France."],
+["Pour Coubertin, il faut former des élites par…","le risque et l’épreuve","la prière","la lutte des classes","le dressage scolaire","C’est la « politique de l’apolitisme » (Defrance)."],
+["Le positivisme, côté républicain laïque, c’est…","le culte de la science","le retour à la monarchie","la primauté de la foi","le rejet du progrès","À distinguer du catholicisme social (partage des richesses)."],
+["Le réseau catholique est surtout implanté…","dans l’Ouest et le Nord","à Paris, au Centre et au Midi","dans les bassins industriels","dans les grandes villes étudiantes","Paysans, aristocratie et grande bourgeoisie traditionnelle."],
+["Avec les colonies de vacances, on passe…","du placement individuel à l’hébergement collectif","du collectif à l’individuel","de la ville à la campagne","du privé au public","UNCV (1909) devient UFCV (1933) ; FNCV (1912) devient UFOVAL puis FOL."],
+["L’USFSA est fondée en…","1887","1873","1903","1919","L’USGF (gymnastique laïque) date de 1873."],
+["De 1950 à 1990, le nombre de licenciés a été multiplié par…","6 (de 2 à 12 millions)","2","10","3","Croissance lente jusqu’en 1960, rapide de 1960 à 1985, puis saturation."],
+["Quel groupe de licenciés est le plus nombreux vers 1990 ?","Les fédérations scolaires et universitaires (6 M)","Les unitaires olympiques","Les affinitaires","Les unitaires non olympiques","Unitaires olympiques 2,5 M, non olympiques 2,5 M, affinitaires 1 M."]]},
+{m:0,t:"Socio · 1919-1936 : mouvements de jeunesse et crises du sport",q:[
+["Le modèle original du scoutisme est…","britannique et protestant","catholique français","laïc français","allemand","Invention militaire britannique non prévue (Baden-Powell, 1898)."],
+["Le manuel militaire de Baden-Powell (1898) est reçu comme…","un manuel de débrouillardise","un traité de théologie","un règlement de patronage","un manuel scolaire","Il est lu par des directeurs d’œuvres britanniques."],
+["Le système des patrouilles repose sur…","l’éducation mutuelle en équipes autonomes","la punition collective","la compétition entre écoles","la surveillance constante d’un adulte","L’adulte est en retrait ; les badges organisent la progression."],
+["Face à l’imagerie militaire, les laïcs…","abandonnent uniforme et discipline, choisissent la mixité","la renforcent","l’imposent partout","l’ignorent totalement","Co-éducation et autogestion dans la nature."],
+["Les scouts catholiques se distinguent par…","l’ordre et la discipline, un développement massif","un refus du scoutisme","la mixité","l’autogestion","Hypothèse : adhésion rassurante à l’époque de la montée des fascismes."],
+["Les CEMEA sont créés en…","1937","1927","1945","1919","Issus des EEdF, pour théoriser et former des bénévoles."],
+["Les premières auberges de jeunesse arrivent en France en 1929 par…","Marc Sangnier","Jean Zay","Léo Lagrange","Baden-Powell","Marc Sangnier est catholique (Le Sillon)."],
+["Les IREP (1927-1929) forment…","les premiers professeurs d’EP","des animateurs de colonies","des chefs scouts","des prêtres","Effectifs confidentiels : 650 en 1940."],
+["La JEC (Jeunesse étudiante chrétienne) est créée en…","1929","1927","1933","1936","JOC 1927, JAC 1928, JEC 1929, JIC 1933."],
+["Le « printemps de l’Église de France » se caractérise par une spécialisation selon…","l’appartenance sociale","l’âge","la région","le sexe","Ouvriers, agriculteurs, étudiants, indépendants."],
+["En 1919 éclate…","l’USFSA (FFF, FFR, athlétisme, tennis…)","la FGSPF","le CIO","la FSGT","Les fédérations unitaires se spécialisent par sport."],
+["Le football devient professionnel en…","1932","1919","1927","1945","Le rugby français est, lui, rejeté par la Grande-Bretagne (1931-1939)."],
+["La massification de la pratique entre-deux-guerres vient surtout…","du sport éducatif ou utilitaire (affinitaire)","du sport olympique","du professionnalisme","du sport d’élite","FGSPF, FOL (1925), UFOLEP (1927), FSGT (1934)."]]},
+{m:0,t:"Socio · 1936-1958 : l’entrée en scène de l’État",q:[
+["Léo Lagrange est…","sous-secrétaire d’État aux Sports et aux Loisirs","ministre de l’Éducation nationale","chef de l’ENSEP","directeur de l’INS","Jean Zay était, lui, ministre de l’Éducation nationale."],
+["Le Brevet sportif populaire est créé en…","1937","1936","1940","1945","Il sert à former les bénévoles et encourager les pratiquants."],
+["Le Front populaire construit environ…","300 équipements","20 000 équipements","500 équipements","5 000 équipements","S’y ajoutent quelques subventions et des réductions SNCF."],
+["Quels effets différés du Front populaire annoncent une révolution culturelle ?","Les congés payés et la semaine de 40 h","Le STO","L’agrément","Les CREPS","Le temps libre devient un enjeu de masse."],
+["Vichy annonce… terrains de sport et en réalise environ 500.","20 000","5 000","2 000","100 000","La propagande occulte la réalisation."],
+["Vichy impose aux fédérations…","l’affiliation fédérale et l’agrément obligatoires","la liberté associative","la délégation de pouvoir","la cogestion","Moins de diversité, plus de contrôle par le Secrétariat général à la Jeunesse."],
+["Les CREGS de Vichy forment…","des maîtres issus des élites sportives","des instituteurs","des inspecteurs","des professeurs d’université","Alternative aux IREP/ENEP, plus pédagogiques et « intellos »."],
+["Entre 1945 et 1958, l’État…","délègue et planifie","contrôle et agrée","stimule et légitime","interdit les fédérations","1936-1940 stimuler ; 1940-1945 contrôler ; 1945-1958 déléguer."],
+["Le rôle des inspecteurs Jeunesse et Sports est de…","former, contrôler, accompagner","enseigner l’EPS","arbitrer les compétitions","dresser les athlètes","Création sous la IVe République, avec les DTN et l’INS."],
+["Le premier niveau de reconnaissance d’une fédération est…","l’agrément","la délégation de pouvoir","la reconnaissance du haut niveau","l’affiliation","Condition pour recevoir les aides de l’État (114 fédérations agréées en 2015)."],
+["La délégation de pouvoir confère…","un monopole légal d’organisation des compétitions et de fixation des règles","l’accès au haut niveau","des subventions","l’agrément","Pour une discipline et une durée déterminées, avis du CNOSF."],
+["L’institutionnalisation de l’éducation populaire entraîne…","scission des minoritaires, perte d’engagement militant, technicisation","une radicalisation militante","une baisse des moyens","un retour aux patronages","Neutralisation des engagements."],
+["L’intervention de l’État avantage surtout…","le sport unitaire, centralisé et hiérarchisé","l’éducation populaire","les fédérations affinitaires","le scoutisme","Sport > éducation populaire ; unitaire > affinitaire."]]},
+{m:1,t:"Histoire · Le sport en Italie fasciste",q:[
+["La marche sur Rome a lieu le…","28 octobre 1922","3 avril 1926","15 mars 1923","9 mai 1936","Mussolini prend le pouvoir et instaure une dictature."],
+["Le PNF est fondé en 1921 par…","Mussolini","Starace","Turati","Ricci","Parti nationaliste doté d’une milice."],
+["La milice du PNF est celle des…","chemises noires","SA","licteurs","balillas","Les SA sont la milice nazie."],
+["L’Opera Nazionale Balilla (ONB) est créée en…","1926","1923","1930","1937","Elle dépend du parti (Renato Ricci)."],
+["La devise de l’ONB est…","« livre et mousquet »","« croire, obéir, combattre »","« la force par la joie »","« Dieu, patrie, famille »","Double composante morale et physique."],
+["La GIL (1937) est dirigée par…","Achille Starace","Renato Ricci","Augusto Turati","Lando Ferretti","Elle reprend le relais de l’ONB et renforce le caractère militaire."],
+["L’OND (1925) s’occupe…","des loisirs des travailleurs","de la jeunesse","de l’arbitrage","de la police","Elle passe de 280 000 membres (1926) à 4,1 millions (1941)."],
+["L’OND touche surtout…","la petite et moyenne bourgeoisie urbaine","les paysans","les ouvriers d’usine","les étudiants","Les paysans, un quart de la population, sont peu concernés."],
+["La Charte du sport (décembre 1928) place le CONI…","sous la dépendance totale du PNF","en autonomie complète","sous tutelle de l’Église","sous contrôle du CIO","Turati préside alors le CONI."],
+["L’Académie fasciste d’éducation physique (1927) forme…","un personnel enseignant discipliné","des athlètes olympiques","des militaires","des médecins","Environ 150 diplômés par an."],
+["Starace préside le CONI de…","1933 à 1939","1925 à 1928","1928 à 1930","1939 à 1945","Il valorise les sports « militaires » : tir, boxe, motonautique."],
+["La « volata » est…","un sport inventé par Turati, sans succès","un grand succès populaire","un sport inventé par Starace","une discipline olympique","Abandonné dans les années 1930."],
+["Orvieto (1932) abrite…","l’Académie féminine d’éducation physique","un Campo Dux","le siège du CONI","un stade olympique","Elle forme les enseignantes d’EP."],
+["Ondina Valla remporte à Berlin en 1936…","le 80 m haies","le 100 m","le saut en hauteur","le 400 m","Les championnes sont des ambassadrices du régime."]]},
+{m:1,t:"Histoire · Le sport en Allemagne nazie",q:[
+["Hitler est nommé chancelier par Hindenburg le…","30 janvier 1933","1er septembre 1939","14 septembre 1930","20 avril 1938","Défilé des SA le soir même."],
+["Aux élections de mars 1933, le NSDAP obtient…","43,9 % des voix","18,3 % des voix","37,4 % des voix","33,1 % des voix","18,3 % en 1930, 37,4 % en juillet 1932, 33,1 % en novembre 1932."],
+["En mai 1939, la Jeunesse hitlérienne compte…","8,7 millions de membres (85 % des enfants)","108 000 membres","2 millions de membres","1 million de membres","108 000 en 1932 ; organisation unique depuis 1933."],
+["Le Reichssportführer est…","Hans von Tschammer und Osten","Goebbels","Hindenburg","Avery Brundage","Il applique le principe du Führer au sport."],
+["Les directives du 24 mai 1933 entraînent…","la disparition des grandes fédérations sportives","la création de la HJ","les JO de Berlin","le KdF","Fédérations bourgeoise (DRA), socialiste (ZK) et confessionnelles."],
+["Kraft durch Freude (1934) est…","une organisation de loisirs inspirée de l’Italie","une école d’élite","une milice","une fédération olympique","Équivalent de l’OND."],
+["Les NAPOLA sont…","des écoles d’élite pour les 10-18 ans","des camps de loisirs","des fédérations sportives","des orchestres du Reich","« Éducation par le corps » et mentalité du soldat."],
+["Le Turnen est…","la gymnastique allemande, née contre Napoléon","la boxe","la course à pied","le football","Les pratiquants doivent servir la patrie."],
+["Le « sport » nazi (Leibesübungen) refuse…","l’égalité des participants, l’internationalisme et le pacifisme","l’obéissance","la race","le devoir","Refus des principes du sport moderne."],
+["Berlin est élue pour les JO en…","1931","1933","1936","1916","Avant l’arrivée des nazis ; les Jeux de 1916 avaient été annulés."],
+["Le budget des JO de Berlin passe de 2,6 à…","36 millions de Reichsmarks","10 millions","100 millions","5 millions","Hitler, d’abord réticent, est convaincu par Goebbels."],
+["Gretel Bergmann est…","une sauteuse en hauteur écartée de l’équipe, exilée en 1938","un alibi de l’équipe allemande","une organisatrice du boycott","une marathonienne","Mayer et Ball furent les alibis."],
+["La première du film Olympia a lieu le…","20 avril 1938, anniversaire d’Hitler","1er août 1936","3 mai 1937","1er septembre 1939","Leni Riefenstahl : référence à la Grèce antique."]]},
+{m:1,t:"Histoire · Le mouvement sportif ouvrier international",q:[
+["Fondée en 1864, l’AIT est…","la Première Internationale","la Deuxième Internationale","la Troisième Internationale","la Ligue des communistes","La Deuxième date de 1889, la Troisième de 1919."],
+["La Commune de Paris date de…","1871","1848","1864","1889","La IIIe République y met fin."],
+["Guesde et Jaurès incarnent respectivement…","le courant révolutionnaire et le courant réformiste","Staline et Trotski","Marx et Proudhon","Lénine et Engels","Tension au sein de la IIe Internationale."],
+["La Troisième Internationale naît en 1919 d’une scission autour de…","Lénine et des bolcheviks","Marx et Engels","Guesde","Jaurès","Scission du 2 mars 1919."],
+["L’union Solidarité (1878) rassemble des…","cyclistes ouvriers","gymnastes","footballeurs","nageurs","150 000 membres en 1913, première organisation cycliste du monde."],
+["L’ATB est…","l’Arbeiter-Turnerbund, union des gymnastes ouvriers","une union de cyclistes","une fédération olympique","un patronage catholique","En 1913, elle refuse une organisation internationale."],
+["L’Internationale de Lucerne et l’Internationale rouge sportive sont respectivement…","socialiste et communiste","catholique et laïque","olympique et professionnelle","allemande et russe","Les deux grandes organisations rivales des années 1920."],
+["L’Olympiade ouvrière de Francfort a lieu en…","1925","1924","1931","1936","Vienne accueille des manifestations comparables en 1931 et 1937."],
+["Les Spartakiades sont organisées par…","l’Internationale rouge sportive","l’Internationale de Lucerne","le CIO","la FIFA","Moscou 1928, Berlin 1931, Lyon 1932."],
+["Une réinterprétation ouvrière des codes olympiques est…","le drapeau rouge et l’Internationale à la cérémonie d’ouverture","l’absence de cérémonie","le professionnalisme","la sélection élitiste","Le sport ouvrier inclut tous niveaux, âges et genres."],
+["L’Olympiade populaire de Barcelone est prévue…","du 19 au 26 juillet 1936","en août 1936","en 1932","en 1938","Alternative aux Jeux de Berlin."],
+["L’Olympiade de Barcelone n’a pas lieu à cause…","du soulèvement de Franco (17 juillet 1936)","d’un boycott","d’un manque de budget","d’une épidémie","Évacuation des athlètes le 23 juillet."],
+["La plus grande délégation étrangère à Barcelone est…","la France (1 200 athlètes)","l’URSS","la Belgique","l’Allemagne","6 000 inscrits : 4 000 Espagnols, 2 000 étrangers."]]}
+];
+const $=id=>document.getElementById(id),sel=new Set([0,1,2,3,4,5]),seen=new Set();
+const sh=a=>{a=[...a];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const show=id=>["home","quiz","res"].forEach(s=>$(s).hidden=s!==id);
+let S=null;
+C.forEach((c,i)=>{const l=document.createElement("label");l.className="card ch "+(c.m?"hi":"so");
+l.innerHTML=`<input type="checkbox" checked><span>${c.t.split(" · ")[1]}<small>${c.q.length} questions</small></span>`;
+l.querySelector("input").onchange=e=>{e.target.checked?sel.add(i):sel.delete(i);upd()};$("l"+c.m).appendChild(l)});
+const boxes=()=>[...document.querySelectorAll("label.ch input")];
+function upd(){const n=[...sel].reduce((s,i)=>s+C[i].q.length,0);$("go").disabled=!n;
+$("info").textContent=n?`${n} questions disponibles dans ta sélection${n<20?" (série réduite)":""}.`:"Coche au moins un chapitre."}
+$("all").onclick=()=>{boxes().forEach((b,i)=>{b.checked=true;sel.add(i)});upd()};
+$("none").onclick=()=>{boxes().forEach(b=>b.checked=false);sel.clear();upd()};
+$("go").onclick=start;$("qt2").onclick=()=>{if(confirm("Abandonner cette série ?"))goHome()};
+function goHome(){boxes().forEach((b,i)=>b.checked=sel.has(i));upd();show("home");scrollTo(0,0)}
+function start(){let pool=[];[...sel].forEach(c=>C[c].q.forEach((q,i)=>pool.push({c,k:c*100+i,q})));
+pool=sh(pool);pool=[...pool.filter(p=>!seen.has(p.k)),...pool.filter(p=>seen.has(p.k))].slice(0,20);
+S={items:sh(pool).map(p=>({c:p.c,k:p.k,q:p.q[0],ans:p.q[1],ex:p.q[5],opts:sh(p.q.slice(1,5)),pick:null})),i:0};
+S.items.forEach(x=>seen.add(x.k));show("quiz");draw()}
+function draw(){const x=S.items[S.i],n=S.items.length,c=C[x.c];
+$("prog").textContent=`Question ${S.i+1} sur ${n}`;$("pb").style.width=(S.i/n*100)+"%";
+const t=$("tg");t.textContent=c.t.split(" · ")[1];t.parentElement.className="card "+(c.m?"hi":"so");t.style.color="var(--c)";
+$("qt").textContent=x.q;$("nx").disabled=x.pick===null;$("nx").textContent=S.i==n-1?"Voir mon résultat":"Suivant";
+const o=$("op");o.innerHTML="";x.opts.forEach(t=>{const b=document.createElement("button");b.className="opt"+(x.pick===t?" sel":"");b.textContent=t;
+b.onclick=()=>{x.pick=t;draw()};o.appendChild(b)})}
+$("nx").onclick=()=>{S.i++;S.i<S.items.length?draw():finish()};
+function finish(){show("res");const it=S.items,ok=it.filter(x=>x.pick===x.ans),ko=it.filter(x=>x.pick!==x.ans),by={};
+it.forEach(x=>{const b=by[x.c]||(by[x.c]=[0,0]);b[1]++;if(x.pick===x.ans)b[0]++});
+const card=(x,g)=>`<div class="card rv ${g?"g":""}"><p><b>${x.q}</b></p>${g?"":`<p>Ta réponse : <b class="w">${x.pick}</b></p>`}<p>Bonne réponse : <b class="a">${x.ans}</b></p><p>${x.ex}</p></div>`;
+$("res").innerHTML=`<h1>Résultat</h1><p class="score">${ok.length} / ${it.length}</p><p class="s">${ko.length?"Relis les corrections ci-dessous, puis refais une série.":"Aucune erreur, bravo !"}</p>
+<div class="card"><table>${Object.keys(by).map(c=>`<tr><td>${C[c].t}</td><td>${by[c][0]} / ${by[c][1]}</td></tr>`).join("")}</table></div>
+<div class="row"><button class="p" id="again">Refaire avec la même sélection</button><button id="chg">Modifier les chapitres</button></div>
+${ko.length?`<h2>Tes erreurs (${ko.length})</h2>${ko.map(x=>card(x,0)).join("")}`:""}
+${ok.length?`<h2>Tes bonnes réponses (${ok.length})</h2>${ok.map(x=>card(x,1)).join("")}`:""}`;
+$("again").onclick=start;$("chg").onclick=goHome;scrollTo(0,0)}
+upd();
+</script>
+</body>
+</html>
