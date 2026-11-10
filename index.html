@@ -19,6 +19,9 @@ p.s{color:var(--mu);margin:0 0 12px}
 label.ch{display:flex;gap:12px;align-items:flex-start;cursor:pointer;border-left:5px solid var(--c);padding-left:10px}
 label.ch input{width:20px;height:20px;margin-top:2px;accent-color:var(--c);flex:none}
 label.ch small{display:block;color:var(--mu)}
+.countrow{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:14px 0}
+.countrow label{font-weight:600}
+.countrow input{width:90px;padding:10px;border:1px solid var(--bd);border-radius:8px;background:var(--sf);color:var(--tx);font:inherit}
 .so{--c:var(--so)}.hi{--c:var(--hi)}
 button{font:600 16px system-ui,sans-serif;border-radius:8px;border:1px solid var(--bd);background:var(--sf);color:var(--tx);padding:12px 16px;cursor:pointer;min-height:44px}
 button.p{background:var(--tx);color:var(--bg);border-color:var(--tx)}
@@ -46,12 +49,13 @@ td:last-child{text-align:right;font-weight:600}
 <main>
 <section id="home">
 <h1>QCM de révision</h1>
-<p class="s">Choisis les chapitres à réviser, puis lance une série de 20 questions tirées au hasard dans ta sélection.</p>
+<p class="s">Choisis les chapitres à réviser et le nombre de questions, puis lance ton QCM aléatoire.</p>
 <h2>Sociologie des loisirs</h2><div id="l0"></div>
 <h2>Histoire du sport</h2><div id="l1"></div>
 <div class="row"><button id="all">Tout sélectionner</button><button id="none">Tout décocher</button></div>
+<div class="countrow"><label for="count">Nombre de questions :</label><input id="count" type="number" min="1" max="20" value="20" step="1"></div>
 <p class="s" id="info"></p>
-<button class="p" id="go">Lancer un QCM de 20 questions</button>
+<button class="p" id="go">Lancer le QCM</button>
 </section>
 <section id="quiz" hidden>
 <p class="s" id="prog"></p><div class="bar"><i id="pb"></i></div>
@@ -107,6 +111,27 @@ const C=[
 ["L’USFSA est fondée en…","1887","1873","1903","1919","L’USGF (gymnastique laïque) date de 1873."],
 ["De 1950 à 1990, le nombre de licenciés a été multiplié par…","6 (de 2 à 12 millions)","2","10","3","Croissance lente jusqu’en 1960, rapide de 1960 à 1985, puis saturation."],
 ["Quel groupe de licenciés est le plus nombreux vers 1990 ?","Les fédérations scolaires et universitaires (6 M)","Les unitaires olympiques","Les affinitaires","Les unitaires non olympiques","Unitaires olympiques 2,5 M, non olympiques 2,5 M, affinitaires 1 M."]]},
+{m:0,t:"Socio · Institutions et repères : sigles, fédérations et encadrement",q:[
+["Que signifie le sigle ACJF ?","Association catholique de la jeunesse française","Association culturelle de la jeunesse fédérale","Alliance chrétienne des jeunes français","Association des collèges de jeunes fédérés","L’ACJF est une structure du mouvement catholique de jeunesse."],
+["À quel réseau associe-t-on principalement l’ACJF ?","Au réseau catholique","Au réseau laïque scolaire","Au mouvement sportif ouvrier","Au mouvement olympique international","L’ACJF appartient aux structures catholiques d’encadrement de la jeunesse."],
+["Que signifie le sigle USGF ?","Union des sociétés de gymnastique de France","Union sportive générale française","Union scolaire de gymnastique fédérale","Union des sports de groupe français","L’USGF est une structure liée à la gymnastique, créée en 1873 selon le cours."],
+["Quelle organisation est associée à la gymnastique laïque dans les premiers développements du sport français ?","L’USGF","La FGSPF","L’ACJF","La FSGT","L’USGF représente le versant gymnastique laïque, à distinguer de la FGSPF catholique."],
+["Que signifie le sigle USFSA ?","Union des sociétés françaises de sports athlétiques","Union sportive fédérale des sociétés associées","Union scolaire française des sports amateurs","Union des fédérations sportives affiliées","L’USFSA est une organisation centrale du mouvement sportif français de la période."],
+["Que signifie le sigle CIO ?","Comité international olympique","Conseil international des organisations sportives","Comité inter fédéral olympique","Conseil international olympique français","Le CIO est l’instance internationale liée au mouvement olympique."],
+["Que signifie le sigle UFOLEP ?","Union française des œuvres laïques d’éducation physique","Union fédérale olympique des ligues d’éducation physique","Union française des organisations libres d’éducation populaire","Union fédérale des œuvres locales et paroissiales","L’UFOLEP s’inscrit dans le mouvement laïque d’éducation physique et sportive."],
+["Que signifie le sigle USEP ?","Union sportive de l’enseignement du premier degré","Union scolaire européenne de pratique physique","Union sportive des établissements professionnels","Union des sociétés d’éducation populaire","L’USEP concerne le sport scolaire dans l’enseignement du premier degré."],
+["À quel domaine correspond l’UNSS ?","Au sport scolaire","Au sport professionnel","Au mouvement sportif catholique","Aux compétitions olympiques internationales","L’UNSS est l’Union nationale du sport scolaire."],
+["La FSGT est historiquement associée…","au mouvement sportif et gymnique du travail","aux patronages catholiques","aux écoles privées confessionnelles","au mouvement olympique international","La FSGT s’inscrit dans le mouvement sportif ouvrier."],
+["Les sigles FFF, FFR et FFT renvoient respectivement…","au football, au rugby et au tennis","à la fédération française scolaire, régionale et touristique","au football, à la randonnée et au triathlon","à trois organismes olympiques","Ces fédérations spécialisées illustrent la différenciation des organisations par discipline."],
+["Quelle transformation concerne l’UNCV dans l’histoire des colonies de vacances ?","Elle devient l’UFCV en 1933","Elle devient l’UNSS en 1933","Elle devient la FSGT en 1912","Elle est absorbée par le CIO en 1909","Le cours indique que l’UNCV, créée en 1909, devient l’UFCV en 1933."],
+["Quelle succession est associée à la FNCV dans le cours ?","FNCV, puis UFOVAL, puis FOL","FNCV, puis USFSA, puis CIO","FNCV, puis FGSPF, puis ACJF","FNCV, puis UNSS, puis FFSU","Le cours présente cette évolution institutionnelle des structures de colonies de vacances."],
+["Quel type de lieu accueille notamment les premières activités physiques du réseau catholique ?","Les paroisses et les patronages","Les seules universités publiques","Les usines nationales","Les stades olympiques municipaux","Les paroisses et les patronages constituent des lieux importants d’implantation du réseau catholique."],
+["Après 1930 et surtout après 1945, quels acteurs contribuent davantage au développement des équipements ?","Les municipalités et les syndicats","Les seules paroisses","Les seules familles","Les comités olympiques étrangers","Le cours souligne le rôle croissant des équipements municipaux et syndicaux."],
+["Dans le personnel d’encadrement sportif, que désigne DTN ?","Directeur technique national","Délégué territorial national","Directeur du temps national","Département technique normatif","Le DTN fait partie des personnels qui participent à l’organisation et au développement des pratiques sportives."],
+["Quelle évolution générale caractérise les personnels d’encadrement des pratiques physiques ?","Ils se diversifient : bénévoles, enseignants, permanents, inspecteurs et cadres techniques","Ils sont progressivement tous remplacés par des médecins","Ils deviennent exclusivement des sportifs professionnels","Ils disparaissent au profit des familles","Le développement des institutions s’accompagne d’une diversification des personnes chargées de l’encadrement."],
+["Dans la progression des licenciés présentée dans le cours, quelle période correspond à la croissance la plus rapide ?","De 1960 à 1985","De 1890 à 1914","De 1914 à 1930","Après 1990","Le cours distingue une croissance lente jusqu’en 1960, une forte progression de 1960 à 1985, puis une stabilisation."],
+["Quelle tendance suit la pratique licenciée après la forte croissance de 1960 à 1985 ?","Une stabilisation liée notamment à la saturation","Une disparition des licences","Une croissance toujours aussi rapide","Un retour au niveau de 1890","Le cours décrit une phase de stabilité ou de saturation après 1985."],
+["Quel principe résume la concurrence entre les mouvements d’encadrement de la jeunesse ?","Des organisations peuvent proposer des pratiques proches tout en défendant des projets de société différents","Toutes les organisations partagent une idéologie identique","La concurrence concerne uniquement le prix des équipements","Les organisations cherchent toutes à supprimer le sport","Le cours insiste sur la concurrence, l’émulation et les visions différentes de l’avenir de la jeunesse."]]},
 {m:0,t:"Socio · 1919-1936 : mouvements de jeunesse et crises du sport",q:[
 ["Le modèle original du scoutisme est…","britannique et protestant","catholique français","laïc français","allemand","Invention militaire britannique non prévue (Baden-Powell, 1898)."],
 ["Le manuel militaire de Baden-Powell (1898) est reçu comme…","un manuel de débrouillardise","un traité de théologie","un règlement de patronage","un manuel scolaire","Il est lu par des directeurs d’œuvres britanniques."],
@@ -135,27 +160,6 @@ const C=[
 ["La délégation de pouvoir confère…","un monopole légal d’organisation des compétitions et de fixation des règles","l’accès au haut niveau","des subventions","l’agrément","Pour une discipline et une durée déterminées, avis du CNOSF."],
 ["L’institutionnalisation de l’éducation populaire entraîne…","scission des minoritaires, perte d’engagement militant, technicisation","une radicalisation militante","une baisse des moyens","un retour aux patronages","Neutralisation des engagements."],
 ["L’intervention de l’État avantage surtout…","le sport unitaire, centralisé et hiérarchisé","l’éducation populaire","les fédérations affinitaires","le scoutisme","Sport > éducation populaire ; unitaire > affinitaire."]]},
-{m:0,t:"Socio · Institutions et repères : sigles, fédérations et encadrement",q:[
-["Que signifie le sigle ACJF ?","Association catholique de la jeunesse française","Association culturelle de la jeunesse fédérale","Alliance chrétienne des jeunes français","Association des collèges de jeunes fédérés","L’ACJF est une structure du mouvement catholique de jeunesse."],
-["À quel réseau associe-t-on principalement l’ACJF ?","Au réseau catholique","Au réseau laïque scolaire","Au mouvement sportif ouvrier","Au mouvement olympique international","L’ACJF appartient aux structures catholiques d’encadrement de la jeunesse."],
-["Que signifie le sigle USGF ?","Union des sociétés de gymnastique de France","Union sportive générale française","Union scolaire de gymnastique fédérale","Union des sports de groupe français","L’USGF est une structure liée à la gymnastique, créée en 1873 selon le cours."],
-["Quelle organisation est associée à la gymnastique laïque dans les premiers développements du sport français ?","L’USGF","La FGSPF","L’ACJF","La FSGT","L’USGF représente le versant gymnastique laïque, à distinguer de la FGSPF catholique."],
-["Que signifie le sigle USFSA ?","Union des sociétés françaises de sports athlétiques","Union sportive fédérale des sociétés associées","Union scolaire française des sports amateurs","Union des fédérations sportives affiliées","L’USFSA est une organisation centrale du mouvement sportif français de la période."],
-["Que signifie le sigle CIO ?","Comité international olympique","Conseil international des organisations sportives","Comité inter fédéral olympique","Conseil international olympique français","Le CIO est l’instance internationale liée au mouvement olympique."],
-["Que signifie le sigle UFOLEP ?","Union française des œuvres laïques d’éducation physique","Union fédérale olympique des ligues d’éducation physique","Union française des organisations libres d’éducation populaire","Union fédérale des œuvres locales et paroissiales","L’UFOLEP s’inscrit dans le mouvement laïque d’éducation physique et sportive."],
-["Que signifie le sigle USEP ?","Union sportive de l’enseignement du premier degré","Union scolaire européenne de pratique physique","Union sportive des établissements professionnels","Union des sociétés d’éducation populaire","L’USEP concerne le sport scolaire dans l’enseignement du premier degré."],
-["À quel domaine correspond l’UNSS ?","Au sport scolaire","Au sport professionnel","Au mouvement sportif catholique","Aux compétitions olympiques internationales","L’UNSS est l’Union nationale du sport scolaire."],
-["La FSGT est historiquement associée…","au mouvement sportif et gymnique du travail","aux patronages catholiques","aux écoles privées confessionnelles","au mouvement olympique international","La FSGT s’inscrit dans le mouvement sportif ouvrier."],
-["Les sigles FFF, FFR et FFT renvoient respectivement…","au football, au rugby et au tennis","à la fédération française scolaire, régionale et touristique","au football, à la randonnée et au triathlon","à trois organismes olympiques","Ces fédérations spécialisées illustrent la différenciation des organisations par discipline."],
-["Quelle transformation concerne l’UNCV dans l’histoire des colonies de vacances ?","Elle devient l’UFCV en 1933","Elle devient l’UNSS en 1933","Elle devient la FSGT en 1912","Elle est absorbée par le CIO en 1909","Le cours indique que l’UNCV, créée en 1909, devient l’UFCV en 1933."],
-["Quelle succession est associée à la FNCV dans le cours ?","FNCV, puis UFOVAL, puis FOL","FNCV, puis USFSA, puis CIO","FNCV, puis FGSPF, puis ACJF","FNCV, puis UNSS, puis FFSU","Le cours présente cette évolution institutionnelle des structures de colonies de vacances."],
-["Quel type de lieu accueille notamment les premières activités physiques du réseau catholique ?","Les paroisses et les patronages","Les seules universités publiques","Les usines nationales","Les stades olympiques municipaux","Les paroisses et les patronages constituent des lieux importants d’implantation du réseau catholique."],
-["Après 1930 et surtout après 1945, quels acteurs contribuent davantage au développement des équipements ?","Les municipalités et les syndicats","Les seules paroisses","Les seules familles","Les comités olympiques étrangers","Le cours souligne le rôle croissant des équipements municipaux et syndicaux."],
-["Dans le personnel d’encadrement sportif, que désigne DTN ?","Directeur technique national","Délégué territorial national","Directeur du temps national","Département technique normatif","Le DTN fait partie des personnels qui participent à l’organisation et au développement des pratiques sportives."],
-["Quelle évolution générale caractérise les personnels d’encadrement des pratiques physiques ?","Ils se diversifient : bénévoles, enseignants, permanents, inspecteurs et cadres techniques","Ils sont progressivement tous remplacés par des médecins","Ils deviennent exclusivement des sportifs professionnels","Ils disparaissent au profit des familles","Le développement des institutions s’accompagne d’une diversification des personnes chargées de l’encadrement."],
-["Dans la progression des licenciés présentée dans le cours, quelle période correspond à la croissance la plus rapide ?","De 1960 à 1985","De 1890 à 1914","De 1914 à 1930","Après 1990","Le cours distingue une croissance lente jusqu’en 1960, une forte progression de 1960 à 1985, puis une stabilisation."],
-["Quelle tendance suit la pratique licenciée après la forte croissance de 1960 à 1985 ?","Une stabilisation liée notamment à la saturation","Une disparition des licences","Une croissance toujours aussi rapide","Un retour au niveau de 1890","Le cours décrit une phase de stabilité ou de saturation après 1985."],
-["Quel principe résume la concurrence entre les mouvements d’encadrement de la jeunesse ?","Des organisations peuvent proposer des pratiques proches tout en défendant des projets de société différents","Toutes les organisations partagent une idéologie identique","La concurrence concerne uniquement le prix des équipements","Les organisations cherchent toutes à supprimer le sport","Le cours insiste sur la concurrence, l’émulation et les visions différentes de l’avenir de la jeunesse."]]},
 {m:1,t:"Histoire · Le sport en Italie fasciste",q:[
 ["La marche sur Rome a lieu le…","28 octobre 1922","3 avril 1926","15 mars 1923","9 mai 1936","Mussolini prend le pouvoir et instaure une dictature."],
 ["Le PNF est fondé en 1921 par…","Mussolini","Starace","Turati","Ricci","Parti nationaliste doté d’une milice."],
@@ -208,14 +212,17 @@ C.forEach((c,i)=>{const l=document.createElement("label");l.className="card ch "
 l.innerHTML=`<input type="checkbox" checked><span>${c.t.split(" · ")[1]}<small>${c.q.length} questions</small></span>`;
 l.querySelector("input").onchange=e=>{e.target.checked?sel.add(i):sel.delete(i);upd()};$("l"+c.m).appendChild(l)});
 const boxes=()=>[...document.querySelectorAll("label.ch input")];
-function upd(){const n=[...sel].reduce((s,i)=>s+C[i].q.length,0);$("go").disabled=!n;
-$("info").textContent=n?`${n} questions disponibles dans ta sélection${n<20?" (série réduite)":""}.`:"Coche au moins un chapitre."}
+function upd(){const n=[...sel].reduce((s,i)=>s+C[i].q.length,0),input=$("count");
+input.max=Math.max(1,n);if(Number(input.value)>n)input.value=n;if(!input.value||Number(input.value)<1)input.value=1;
+$("go").disabled=!n;
+$("info").textContent=n?`${n} questions disponibles dans ta sélection. Tu peux choisir de 1 à ${n} questions.`:"Coche au moins un chapitre."}
 $("all").onclick=()=>{boxes().forEach((b,i)=>{b.checked=true;sel.add(i)});upd()};
 $("none").onclick=()=>{boxes().forEach(b=>b.checked=false);sel.clear();upd()};
 $("go").onclick=start;$("qt2").onclick=()=>{if(confirm("Abandonner cette série ?"))goHome()};
 function goHome(){boxes().forEach((b,i)=>b.checked=sel.has(i));upd();show("home");scrollTo(0,0)}
 function start(){let pool=[];[...sel].forEach(c=>C[c].q.forEach((q,i)=>pool.push({c,k:c*100+i,q})));
-pool=sh(pool);pool=[...pool.filter(p=>!seen.has(p.k)),...pool.filter(p=>seen.has(p.k))].slice(0,20);
+const requested=Math.max(1,Math.min(Number($("count").value)||20,pool.length));
+pool=sh(pool);pool=[...pool.filter(p=>!seen.has(p.k)),...pool.filter(p=>seen.has(p.k))].slice(0,requested);
 S={items:sh(pool).map(p=>({c:p.c,k:p.k,q:p.q[0],ans:p.q[1],ex:p.q[5],opts:sh(p.q.slice(1,5)),pick:null})),i:0};
 S.items.forEach(x=>seen.add(x.k));show("quiz");draw()}
 function draw(){const x=S.items[S.i],n=S.items.length,c=C[x.c];
